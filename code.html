@@ -25,8 +25,8 @@
 	<!--Nav Section-->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top">
 		<div class="container-fluid">
-			<a class="navbar-brand logoFont" href="#"><img src="img/Adrian gonzalez.svg" class="d-inline-block align-text-center"
-					width=30 height="24"> 1 HUNNY</a>
+			<a class="navbar-brand logoFont" href="#"><img src="img/Adrian gonzalez.svg"
+					class="d-inline-block align-text-center" width=30 height="24"> 1 HUNNY</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
 				aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -60,17 +60,72 @@
 			<div class="row row-cols-1 row-cols-lg-2">
 				<div class="col-lg-8">
 					<pre class="line-numbers"><code class="language-javascript">
-						// Call Hello World
-						function HelloWorld(){
-							alert("Hello World");
-						}
+							// get the values from the page
+							//starts or controller function
+							function getValues() {
+								//get values
+								let startValue = document.getElementById("startValue").value;
+								let endValue = document.getElementById("endValue").value;
+								let numbers = [];
+
+								//parse into integers
+								startValue = parseInt(startValue);
+								endValue = parseInt(endValue);
+
+								if (Number.isInteger(startValue) && Number.isInteger(endValue)) {
+									//call generateNumbers
+									numbers = generateNumbers(startValue, endValue);
+								} else {
+									alert("You must enter integers");
+								}
+
+								//call displayNumbers
+								displayNumbers(numbers);
+							}
+
+							// generate numbers from startvalue to endvalue
+							//logic functions
+							function generateNumbers(sValue, eValue) {
+								let numbers = [];
+
+								for (let index = sValue; index <= eValue; index++) {
+									numbers.push(index);
+								}
+
+								return numbers;
+							}
+
+							// display the numbers and mark even numbers bold
+							//display or view function
+							function displayNumbers(numbers) {
+								let templateRows = "";
+
+								for (let index = 0; index < numbers.length; index++) {
+									let number = numbers[index];
+
+									let className = (number % 2 == 0) ? "even" : "odd";
+
+									//This does not render correctly with Prism. See the source.
+									templateRows += `<tr><td class="${className}">${number}</td></tr>`;
+								}
+
+								document.getElementById("results").innerHTML = templateRows;
+							}
 						</code>
 					</pre>
 				</div>
 				<div class="col-lg-4">
-					<p>The Code is structured in one function.</p>
-					<h5>Hello World</h5>
-					<p>Hello World is a function that displays an alert with a message of "Hello World"</p>
+					<h2>getValues</h2>
+					<p>This function is the main controller for the application. It could be thought of as a manager of
+						smaller tasks.</p>
+					<h2>generateNumbers</h2>
+					<p>This function accepts two numbers as input, sValue and eValue and generates an array which
+						includes all numbers starting with the sValue and ending with the eValue.
+					</p>
+					<h2>displayValues</h2>
+					<p>This function accepts an array of numbers, generates a string of markup necessary to display them and injects
+						the string into the page.
+					</p>
 				</div>
 			</div>
 		</div>
